@@ -34,6 +34,12 @@ SurveyMe is a simple application where you can create surveys and share them for
 
 ## Instructions
 
+Clone the project.
+```bash
+  git clone https://github.com/osmannkartall/surveyme.git
+```
+
+
 1. [Create an emulator using Android Studio.](https://docs.expo.io/workflow/android-studio-emulator/)
 
 2. [Create a Firestore database in Firebase Console.](https://firebase.google.com/docs/firestore/quickstart)
@@ -58,6 +64,7 @@ const firebaseConfig = {
 
 7. Install packages.
 ```bash
+cd surveyme
 npm install
 ```
 
