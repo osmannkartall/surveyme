@@ -1,0 +1,9 @@
+export const EMAIL_FORMAT = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+export const PASSWORD_MIN_LEN = 6;
+export const PASSWORD_MAX_LEN = 32;
+export const USERNAME_MIN_LEN = 6;
+export const USERNAME_MAX_LEN = 32;
+export const USERNAME_FORMAT = /^[a-z0-9]{3,20}$/;
+export const SURVEY_CODE_FORMAT = /^[a-z0-9]{3,20}:{1}[a-zA-Z0-9]{20}:{1}[a-z0-9]{40}$/;
+export const SURVEY_TITLE_MIN_LEN = 3;
+export const SURVEY_TITLE_MAX_LEN = 250;

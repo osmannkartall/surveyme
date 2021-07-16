@@ -1,0 +1,86 @@
+// Copy the code below and paste in rules section of your firestore project.
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function getOwnerId(surveyId) {
+      return get(/databases/$(database)/documents/surveys/$(surveyId)).data.ownerId;
+    }
+    
+    function isSurveyPublished(surveyId) {
+      return get(/databases/$(database)/documents/surveys/$(surveyId)).data.published == true;
+    }
+    
+    // Returns true if there is no any survey with the given id.
+    // This allows doc.exists property to be returned to the client side instead of "permission-denied" error.
+    // Thus, we can give "permission-denied" error to the client if the client tries to access to surveys
+    // of other users or we can give "survey not found" error if the client passes wrong survey id.
+    function isSurveyNotFound(surveyId) {
+      return !exists(/databases/$(database)/documents/surveys/$(surveyId));
+    }
+    
+    // It is similar to isSurveyNotFound() function.
+    // We can throw "invalid survey code" error when the client passes wrong survey code(publishedId).
+    function isPublishedNotFound(surveyId, publishedId) {
+      return !exists(/databases/$(database)/documents/surveys/$(surveyId)/published/$(publishedId));
+    }
+    
+    // Returns true if survey with the given id belongs to the authenticated user.
+    function isAllowedWrite(surveyId, authObj) {
+      return authObj != null && getOwnerId(surveyId) == authObj.uid;
+    }
+
+    match /surveys/{surveyId} {
+      allow write: 
+      	if request.auth != null && request.auth.uid == request.resource.data.ownerId;
+
+      allow list:
+        if request.auth != null && request.auth.uid == resource.data.ownerId;
+      
+      allow get:
+      	if (request.auth != null && request.auth.uid == resource.data.ownerId)
+          || isSurveyNotFound(surveyId);
+      
+      allow delete:
+      	if request.auth != null && request.auth.uid == resource.data.ownerId;
+      
+      // Each survey document has a sub-collection called "published".
+      // Each "published" sub-collection contains only a single document.
+      // This single document contains survey questions and title
+      // which are accessable by only the survey owner until the survey is published.
+      match /published/{publishedId} {
+        allow write:
+          if isAllowedWrite(surveyId, request.auth);
+        
+        // Only authenticated users can only read the published data of their own surveys in batches.
+        allow list, delete:
+          if request.auth != null && request.auth.uid == getOwnerId(surveyId);
+
+        // Avoid access to the given survey if it is not published.
+        allow get:
+          if isSurveyPublished(surveyId) || isPublishedNotFound(surveyId, publishedId);
+    	}
+    }
+    
+    match /users/{userId} {
+      allow read, update, delete:
+      	if request.auth != null && request.auth.uid == userId;
+      allow create:
+      	if request.auth != null;
+    }
+    
+    match /submissions/{submissionId} {
+      // Only authenticated users can only read submissions of their own surveys.
+      // When authenticated user deletes a survey, submissions of the survey are deleted as well.
+      allow read, delete:
+      	if request.auth != null && getOwnerId(resource.data.surveyId) == request.auth.uid;
+      	// tip: Access surveyId fields in submission documents by $(resource.data.surveyId)
+        	
+      // Survey submissions(results) cannot be updated.
+      allow update: if false;
+      
+      // If the survey is published and the given survey code is valid, anyone can participate in it.
+      // We try to generate unique survey code for each survey that is hard to discover by brute-force.
+      allow create;
+    }
+  }
+}
