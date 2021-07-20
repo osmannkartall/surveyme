@@ -40,7 +40,7 @@ Clone the project.
 ```
 
 
-1. [Create an emulator using Android Studio.](https://docs.expo.io/workflow/android-studio-emulator/)
+1. [Create an emulator using Android Studio](https://docs.expo.io/workflow/android-studio-emulator/) to run the application on an emulator or download [Expo Go](https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=www) to run it on a real Android device.
 
 2. [Create a Firestore database in Firebase Console.](https://firebase.google.com/docs/firestore/quickstart)
 
@@ -62,15 +62,29 @@ const firebaseConfig = {
 };
 ```
 
-7. Install packages.
+7. Install [Node.js and npm](https://nodejs.org/en/download/) if you haven't already.
+
+8. Install packages.
 ```bash
 cd surveyme
 npm install
 ```
 
-8. Start the app locally.
+9. Start the project.
 ```bash
 expo start
+```
+
+10. Run the app
+```
+on Android Emulator:
+    Make sure that the emulator is running.
+    Then, press a in terminal.
+
+or
+
+on your Android Device:
+    Open Expo Go and scan the QR code seen in terminal/browser.
 ```
 
 ## Features
@@ -84,8 +98,11 @@ expo start
 
 ## Demo
 
-https://drive.google.com/file/d/1DIyq8xZfCWkZ4k3AKT54qUXCTcZgbRyh/view
+<p>
+  <img style="align: center;" width="250" height="500" src="https://github.com/osmannkartall/surveyme/blob/master/assets/surveyme-demo.gif" />
+</p>
 
+[Video](https://drive.google.com/file/d/1DIyq8xZfCWkZ4k3AKT54qUXCTcZgbRyh/view) for detailed demo with multiple emulators
 ## TODO
 
 1. Optimize the number of get and exist requests in rules and cache surveys and submissions
