@@ -64,18 +64,25 @@ const firebaseConfig = {
 
 7. Install [Node.js and npm](https://nodejs.org/en/download/) if you haven't already.
 
-8. Install packages.
+8. Install expo-cli globally.
+```
+npm install -g expo-cli
+```
+
+9. Install dependencies of the project.
 ```bash
 cd surveyme
 npm install
 ```
 
-9. Start the project.
+10. Start the project.
 ```bash
 expo start
 ```
+> Note: If expo command not found you may need to add the path of global npm package installations to path variable.<br>
+> e.g. for Windows, this path might be C:\Users\your-username\AppData\Roaming\npm
 
-10. Run the app
+11. Run the app
 ```
 on Android Emulator:
     Make sure that the emulator is running.
@@ -103,6 +110,7 @@ on your Android Device:
 </p>
 
 [Video](https://drive.google.com/file/d/1DIyq8xZfCWkZ4k3AKT54qUXCTcZgbRyh/view) for detailed demo with multiple emulators
+
 ## TODO
 
 1. Optimize the number of get and exist requests in rules and cache surveys and submissions
