@@ -78,20 +78,19 @@ npm install
 10. Start the project.
 ```bash
 expo start
+
+# Note: If expo command not found you may need to add the global prefix to path variable.
+# You can run "npm prefix -g" command to get the global prefix.
 ```
-> Note: If expo command not found you may need to add the path of global npm package installations to path variable.<br>
-> e.g. for Windows, this path might be C:\Users\your-username\AppData\Roaming\npm
 
-11. Run the app
+11. Run the app.
+
 ```
-on Android Emulator:
-    Make sure that the emulator is running.
-    Then, press a in terminal.
+Android Emulator: Make sure that the emulator is running. Then, press a in terminal.
+```
 
-or
-
-on your Android Device:
-    Open Expo Go and scan the QR code seen in terminal/browser.
+```
+Your Android Device: Open Expo Go and scan the QR code seen in terminal/browser.
 ```
 
 ## Features
