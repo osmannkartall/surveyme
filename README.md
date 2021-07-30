@@ -4,7 +4,7 @@
 
 # SurveyMe
 
-SurveyMe is a simple application where you can create surveys and share them for others to participate in. Developed using React Native and Firebase services.
+SurveyMe is a simple application where you can create surveys and share them for others to participate in anonymously. Developed using React Native and Firebase services.
 
 ## Architecture
 
